@@ -16,6 +16,21 @@ public class WeeklyOfferService {
                     .productCode("APPLE")
                     .requiredQuantity(2)
                     .offerPrice(price("0.45"))
+                    .build(),
+            "PEAR", WeeklyOffer.builder()
+                    .productCode("PEAR")
+                    .requiredQuantity(3)
+                    .offerPrice(price("1.20"))
+                    .build(),
+            "KIWI", WeeklyOffer.builder()
+                    .productCode("KIWI")
+                    .requiredQuantity(2)
+                    .offerPrice(price("1.40"))
+                    .build(),
+            "BREAD", WeeklyOffer.builder()
+                    .productCode("BREAD")
+                    .requiredQuantity(2)
+                    .offerPrice(price("2.30"))
                     .build()
     );
 

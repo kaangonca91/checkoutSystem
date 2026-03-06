@@ -35,7 +35,28 @@ public class CheckoutService {
         Map<String, Long> quantitiesByCode = safeItems.stream()
                 .map(this::normalize)
                 .collect(Collectors.groupingBy(code -> code, TreeMap::new, Collectors.counting()));
+        return checkoutByNormalizedQuantities(quantitiesByCode);
+    }
 
+    public CheckoutResultDTO checkout(Map<String, Long> requestedQuantities) {
+        Map<String, Long> quantitiesByCode = new TreeMap<>();
+        if (requestedQuantities == null) {
+            return checkoutByNormalizedQuantities(quantitiesByCode);
+        }
+
+        for (Map.Entry<String, Long> entry : requestedQuantities.entrySet()) {
+            String code = normalize(entry.getKey());
+            Long quantity = entry.getValue();
+            if (quantity == null || quantity <= 0L) {
+                throw new IllegalArgumentException("quantity must be greater than 0 for product: " + code);
+            }
+            quantitiesByCode.merge(code, quantity, Long::sum);
+        }
+
+        return checkoutByNormalizedQuantities(quantitiesByCode);
+    }
+
+    private CheckoutResultDTO checkoutByNormalizedQuantities(Map<String, Long> quantitiesByCode) {
         List<CheckoutLineDTO> lines = new ArrayList<>();
         BigDecimal total = BigDecimal.ZERO;
 

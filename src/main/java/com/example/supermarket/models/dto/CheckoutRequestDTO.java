@@ -1,6 +1,6 @@
 package com.example.supermarket.models.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +16,10 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class CheckoutRequestDTO extends BaseDTO {
 
-    @NotNull(message = "items must be provided")
+    // Backward compatible input where each code represents one unit.
     private List<String> items;
+
+    // Preferred input style with explicit product quantity.
+    @Valid
+    private List<CheckoutItemRequestDTO> lines;
 }

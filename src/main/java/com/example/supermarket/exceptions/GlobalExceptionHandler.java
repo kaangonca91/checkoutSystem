@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,23 @@ public class GlobalExceptionHandler {
         if (cause != null && cause.getMessage() != null) {
             detail.setProperty("cause", cause.getMessage());
         }
+        return detail;
+    }
+
+    @ExceptionHandler(ResponseStatusException.class)
+    public ProblemDetail handleResponseStatus(ResponseStatusException exception) {
+        HttpStatus status = HttpStatus.valueOf(exception.getStatusCode().value());
+        ProblemDetail detail = ProblemDetail.forStatus(status);
+        detail.setTitle(status.getReasonPhrase());
+        detail.setDetail(exception.getReason() == null ? status.getReasonPhrase() : exception.getReason());
+        return detail;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail handleIllegalArgument(IllegalArgumentException exception) {
+        ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+        detail.setTitle("Validation failed");
+        detail.setDetail(exception.getMessage());
         return detail;
     }
 

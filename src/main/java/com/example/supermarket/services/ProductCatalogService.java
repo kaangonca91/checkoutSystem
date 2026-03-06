@@ -14,7 +14,13 @@ public class ProductCatalogService {
     private final Map<String, Product> productsByCode = Map.of(
             "APPLE", Product.builder().code("APPLE").name("Apple").unitPrice(price("0.30")).build(),
             "BANANA", Product.builder().code("BANANA").name("Banana").unitPrice(price("0.20")).build(),
-            "ORANGE", Product.builder().code("ORANGE").name("Orange").unitPrice(price("0.50")).build()
+            "ORANGE", Product.builder().code("ORANGE").name("Orange").unitPrice(price("0.50")).build(),
+            "PEAR", Product.builder().code("PEAR").name("Pear").unitPrice(price("0.45")).build(),
+            "KIWI", Product.builder().code("KIWI").name("Kiwi").unitPrice(price("0.80")).build(),
+            "MILK", Product.builder().code("MILK").name("Milk").unitPrice(price("1.10")).build(),
+            "BREAD", Product.builder().code("BREAD").name("Bread").unitPrice(price("1.30")).build(),
+            "EKMEK", Product.builder().code("EKMEK").name("Ekmek").unitPrice(price("1.25")).build(),
+            "SUCUK", Product.builder().code("SUCUK").name("Sucuk").unitPrice(price("3.90")).build()
     );
 
     public Optional<Product> findByCode(String code) {

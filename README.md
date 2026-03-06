@@ -10,7 +10,19 @@ mvn spring-boot:run
 
 `POST /api/checkout`
 
-Request:
+Preferred request format (product + quantity):
+
+```json
+{
+  "lines": [
+    { "productCode": "APPLE", "quantity": 2 },
+    { "productCode": "BANANA", "quantity": 1 },
+    { "productCode": "ORANGE", "quantity": 1 }
+  ]
+}
+```
+
+Legacy request format is also supported:
 
 ```json
 {
@@ -59,8 +71,21 @@ Response example:
 }
 ```
 
-## Default Products and Offer
+## Default Products
 
-- APPLE: 0.30 EUR (offer: 2 for 0.45 EUR)
+- APPLE: 0.30 EUR
 - BANANA: 0.20 EUR
 - ORANGE: 0.50 EUR
+- PEAR: 0.45 EUR
+- KIWI: 0.80 EUR
+- MILK: 1.10 EUR
+- BREAD: 1.30 EUR
+- EKMEK: 1.25 EUR
+- SUCUK: 3.90 EUR
+
+## Weekly Offers
+
+- APPLE: 2 for 0.45 EUR
+- PEAR: 3 for 1.20 EUR
+- KIWI: 2 for 1.40 EUR
+- BREAD: 2 for 2.30 EUR
