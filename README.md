@@ -6,11 +6,11 @@
 mvn spring-boot:run
 ```
 
-## Checkout API
+## Cart API
 
-`POST /api/checkout`
+`POST /api/carts`
 
-Preferred request format (product + quantity):
+Request (preferred):
 
 ```json
 {
@@ -29,6 +29,18 @@ Legacy request format is also supported:
   "items": ["APPLE", "BANANA", "APPLE", "ORANGE"]
 }
 ```
+
+Response:
+
+```json
+{
+  "cartId": "c5f0bbef-3ff4-4f2f-a4dd-1f0cc3dd6bd4"
+}
+```
+
+## Checkout API
+
+`GET /api/checkout/{cartId}`
 
 Response example:
 

@@ -85,6 +85,14 @@ public class GlobalExceptionHandler {
         return detail;
     }
 
+    @ExceptionHandler(CartNotFoundException.class)
+    public ProblemDetail handleCartNotFound(CartNotFoundException exception) {
+        ProblemDetail detail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        detail.setTitle("Cart not found");
+        detail.setDetail(exception.getMessage());
+        return detail;
+    }
+
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleUnexpected(Exception exception) {
         LOGGER.error("Unhandled exception", exception);
